@@ -57,7 +57,7 @@ class HoursColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget child = Container(
-      height: topOffsetCalculator(maximumTime),
+      height: topOffsetCalculator(maximumTime) * 1.1,
       width: style.width,
       color: style.decoration == null ? style.color : null,
       decoration: style.decoration,
@@ -65,8 +65,7 @@ class HoursColumn extends StatelessWidget {
         children: _sideTimes
             .map(
               (time) => Positioned(
-                top: topOffsetCalculator(time) -
-                    ((style.textStyle.fontSize ?? 14) / 2),
+                top: topOffsetCalculator(time) + 15,
                 left: 0,
                 right: 0,
                 child: Align(
@@ -102,8 +101,8 @@ class HoursColumn extends StatelessWidget {
   static List<HourMinute> getSideTimes(
       HourMinute minimumTime, HourMinute maximumTime, Duration interval) {
     List<HourMinute> sideTimes = [];
-    HourMinute currentHour = HourMinute(hour: minimumTime.hour + 1);
-    while (currentHour < maximumTime) {
+    HourMinute currentHour = HourMinute(hour: minimumTime.hour);
+    while (currentHour <= maximumTime) {
       sideTimes.add(currentHour);
       currentHour =
           currentHour.add(HourMinute.fromDuration(duration: interval));

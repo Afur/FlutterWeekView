@@ -106,8 +106,8 @@ class _DayViewState extends ZoomableHeadersWidgetState<DayView> {
 
   @override
   Widget build(BuildContext context) {
-    Widget mainWidget = createMainWidget();
-    if (widget.style.headerSize > 0 || widget.hoursColumnStyle.width > 0) {
+    return createMainWidget();
+    /* if (widget.style.headerSize > 0 || widget.hoursColumnStyle.width > 0) {
       mainWidget = Stack(
         children: [
           mainWidget,
@@ -139,7 +139,7 @@ class _DayViewState extends ZoomableHeadersWidgetState<DayView> {
       onScaleStart: widget.controller.scaleStart,
       onScaleUpdate: widget.controller.scaleUpdate,
       child: mainWidget,
-    );
+    ); */
   }
 
   @override
@@ -193,10 +193,7 @@ class _DayViewState extends ZoomableHeadersWidgetState<DayView> {
       );
     }
 
-    return Padding(
-      padding: EdgeInsets.only(top: widget.style.headerSize),
-      child: mainWidget,
-    );
+    return mainWidget;
   }
 
   /// Creates the background widgets that should be added to a stack.

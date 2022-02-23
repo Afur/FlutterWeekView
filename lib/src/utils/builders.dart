@@ -113,7 +113,7 @@ class DefaultBuilders {
     }
 
     return Positioned(
-      top: topOffsetCalculator(HourMinute.now()),
+      top: topOffsetCalculator(HourMinute.now()) + 26,
       left: isRtl ? 0 : hoursColumnWidth,
       right: isRtl ? hoursColumnWidth : 0,
       child: Row(children: children),

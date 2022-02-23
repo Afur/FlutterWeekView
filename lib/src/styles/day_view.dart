@@ -184,7 +184,7 @@ class _EventsColumnBackgroundPainter extends CustomPainter {
       final List<HourMinute> sideTimes =
           HoursColumn.getSideTimes(minimumTime, maximumTime, interval);
       for (HourMinute time in sideTimes) {
-        double topOffset = topOffsetCalculator(time);
+        double topOffset = topOffsetCalculator(time) + 26;
         canvas.drawLine(Offset(0, topOffset), Offset(size.width, topOffset),
             Paint()..color = dayViewStyle.backgroundRulesColor!);
       }

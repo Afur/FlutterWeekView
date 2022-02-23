@@ -32,9 +32,6 @@ class _FlutterWeekViewDemoApp extends StatelessWidget {
     required Widget body,
   }) =>
       Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
         body: body,
       );
 }
@@ -111,7 +108,7 @@ class _DemoDayView extends StatelessWidget {
         FlutterWeekViewEvent(
           title: 'An event 1',
           description: 'A description 1',
-          start: date.subtract(const Duration(hours: 1)),
+          start: date.subtract(const Duration(hours: 0)),
           end: date.add(const Duration(hours: 18, minutes: 30)),
         ),
         FlutterWeekViewEvent(
@@ -139,8 +136,12 @@ class _DemoDayView extends StatelessWidget {
           end: date.add(const Duration(hours: 21)),
         ),
       ],
+      hoursColumnStyle: HoursColumnStyle(textStyle: TextStyle(fontSize: 18)),
+      userZoomable: false,
       style: DayViewStyle.fromDate(
         date: date,
+        hourRowHeight: 100,
+        backgroundRulesColor: Colors.red,
         currentTimeCircleColor: Colors.pink,
       ),
     );

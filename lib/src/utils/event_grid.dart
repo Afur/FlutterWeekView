@@ -140,11 +140,10 @@ class EventDrawProperties {
       return;
     }
 
-    top = topOffsetCalculator(HourMinute.fromDateTime(dateTime: start!));
+    top = topOffsetCalculator(HourMinute.fromDateTime(dateTime: start!)) + 25;
     height = topOffsetCalculator(
-            HourMinute.fromDuration(duration: end!.difference(start!)),
-            minimumTime: HourMinute.MIN) +
-        1;
+        HourMinute.fromDuration(duration: end!.difference(start!)),
+        minimumTime: HourMinute.MIN);
   }
 
   /// Returns whether this draw properties overlaps another.
