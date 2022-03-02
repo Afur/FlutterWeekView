@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
@@ -80,6 +81,8 @@ class _DayViewState extends ZoomableHeadersWidgetState<DayView> {
   /// The flutter week view events.
   late List<FlutterWeekViewEvent> events;
 
+  late Timer? timer;
+
   @override
   void initState() {
     super.initState();
@@ -90,6 +93,11 @@ class _DayViewState extends ZoomableHeadersWidgetState<DayView> {
         setState(createEventsDrawProperties);
       }
     });
+
+    timer = Timer.periodic(
+      const Duration(minutes: 1),
+      (_) => setState(createEventsDrawProperties),
+    );
   }
 
   @override
@@ -102,6 +110,12 @@ class _DayViewState extends ZoomableHeadersWidgetState<DayView> {
 
     reset();
     createEventsDrawProperties();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override
