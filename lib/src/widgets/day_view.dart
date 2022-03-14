@@ -29,6 +29,7 @@ class DayView extends ZoomableHeadersWidget<DayViewStyle, DayViewController> {
 
   /// Creates a new day view instance.
   DayView({
+    Key? key,
     List<FlutterWeekViewEvent>? events,
     required DateTime date,
     DayViewStyle? style,
@@ -49,6 +50,7 @@ class DayView extends ZoomableHeadersWidget<DayViewStyle, DayViewController> {
         date = date.yearMonthDay,
         dayBarStyle = dayBarStyle ?? DayBarStyle.fromDate(date: date),
         super(
+          key: key,
           style: style ?? DayViewStyle.fromDate(date: date),
           hoursColumnStyle: hoursColumnStyle ?? const HoursColumnStyle(),
           controller: controller ?? DayViewController(),
@@ -121,39 +123,6 @@ class _DayViewState extends ZoomableHeadersWidgetState<DayView> {
   @override
   Widget build(BuildContext context) {
     return createMainWidget();
-    /* if (widget.style.headerSize > 0 || widget.hoursColumnStyle.width > 0) {
-      mainWidget = Stack(
-        children: [
-          mainWidget,
-          Positioned(
-            top: 0,
-            left: widget.isRTL ? 0 : widget.hoursColumnStyle.width,
-            right: widget.isRTL ? widget.hoursColumnStyle.width : 0,
-            child: DayBar.fromHeadersWidgetState(
-              parent: widget,
-              date: widget.date,
-              style: widget.dayBarStyle,
-              width: double.infinity,
-            ),
-          ),
-          Container(
-            height: widget.style.headerSize,
-            width: widget.hoursColumnStyle.width,
-            color: widget.dayBarStyle.color,
-          ),
-        ],
-      );
-    }
-
-    if (!isZoomable) {
-      return mainWidget;
-    }
-
-    return GestureDetector(
-      onScaleStart: widget.controller.scaleStart,
-      onScaleUpdate: widget.controller.scaleUpdate,
-      child: mainWidget,
-    ); */
   }
 
   @override

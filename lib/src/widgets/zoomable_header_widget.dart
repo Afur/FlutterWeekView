@@ -32,6 +32,9 @@ typedef HoursColumnTimeBuilder = Widget? Function(
 /// A widget which is showing both headers and can be zoomed.
 abstract class ZoomableHeadersWidget<S extends ZoomableHeaderWidgetStyle,
     C extends ZoomController> extends StatefulWidget {
+  /// The widget key.
+  final Key? key;
+
   /// The widget style.
   final S style;
 
@@ -73,6 +76,7 @@ abstract class ZoomableHeadersWidget<S extends ZoomableHeaderWidgetStyle,
 
   /// Creates a new zoomable headers widget instance.
   const ZoomableHeadersWidget({
+    this.key,
     required this.style,
     required this.hoursColumnStyle,
     required this.inScrollableWidget,
@@ -86,7 +90,7 @@ abstract class ZoomableHeadersWidget<S extends ZoomableHeaderWidgetStyle,
     required this.controller,
     this.hoursColumnTimeBuilder,
     required this.isRTL,
-  });
+  }) : super(key: key);
 }
 
 /// An abstract widget state that shows both headers and can be zoomed.
@@ -131,6 +135,21 @@ abstract class ZoomableHeadersWidgetState<W extends ZoomableHeadersWidget>
           (verticalScrollController!.offset + details.localFocalPoint.dy) /
               controller.zoomFactor;
     }
+  }
+
+  void scrollToCurrentTime() {
+    final hourHeight = currentDayViewStyle.hourRowHeight;
+    final topPossition =
+        calculateTopOffset(HourMinute.now(), hourRowHeight: hourHeight);
+    final currentTimePossition = topPossition - hourHeight < hourHeight
+        ? 0.0
+        : topPossition - hourHeight;
+
+    verticalScrollController?.animateTo(
+      currentTimePossition,
+      duration: const Duration(seconds: 2),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   @override
