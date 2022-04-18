@@ -47,6 +47,12 @@ class FlutterWeekViewEvent extends Comparable<FlutterWeekViewEvent> {
   /// The event text builder.
   final EventTextBuilder? eventTextBuilder;
 
+  /// The right top optional widget
+  final Widget? topRight;
+
+  /// The left bottom optional widget
+  final Widget? bottomLeft;
+
   /// Creates a new flutter week view event instance.
   FlutterWeekViewEvent({
     required this.title,
@@ -61,6 +67,8 @@ class FlutterWeekViewEvent extends Comparable<FlutterWeekViewEvent> {
     this.onTap,
     this.onLongPress,
     this.eventTextBuilder,
+    this.topRight,
+    this.bottomLeft,
   })  : start = start.yearMonthDayHourMinute,
         end = end.yearMonthDayHourMinute;
 
@@ -68,7 +76,7 @@ class FlutterWeekViewEvent extends Comparable<FlutterWeekViewEvent> {
   Widget build(
       BuildContext context, DayView dayView, double height, double width) {
     height = height - (padding?.top ?? 0.0) - (padding?.bottom ?? 0.0);
-    width = width - (padding?.left ?? 0.0) - (padding?.right ?? 0.0);
+    width = width - (padding?.left ?? 0.0) - (padding?.right ?? 0.0) - 30;
 
     return GestureDetector(
       onTap: onTap,
@@ -80,12 +88,35 @@ class FlutterWeekViewEvent extends Comparable<FlutterWeekViewEvent> {
                 : null),
         margin: margin,
         padding: padding,
-        child: (eventTextBuilder ?? DefaultBuilders.defaultEventTextBuilder)(
-          this,
-          context,
-          dayView,
-          math.max(0.0, height),
-          math.max(0.0, width),
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              child:
+                  (eventTextBuilder ?? DefaultBuilders.defaultEventTextBuilder)(
+                this,
+                context,
+                dayView,
+                math.max(0.0, height),
+                math.max(0.0, width),
+              ),
+            ),
+            topRight != null
+                ? Positioned(
+                    top: 0,
+                    right: 0,
+                    child: topRight!,
+                  )
+                : const SizedBox.shrink(),
+            height > 100 && bottomLeft != null
+                ? Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: bottomLeft!,
+                  )
+                : const SizedBox.shrink(),
+          ],
         ),
       ),
     );
