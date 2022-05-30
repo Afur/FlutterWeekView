@@ -144,6 +144,11 @@ class EventDrawProperties {
     height = topOffsetCalculator(
         HourMinute.fromDuration(duration: end!.difference(start!)),
         minimumTime: HourMinute.MIN);
+
+    // We want to display events with durration like 5 min as readable 
+    if (height != null && height! < 25) {
+      height = 25;
+    }
   }
 
   /// Returns whether this draw properties overlaps another.

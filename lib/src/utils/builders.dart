@@ -58,7 +58,8 @@ class DefaultBuilders {
       exceedHeight = _exceedHeight(text, event.textStyle, height, width);
       if (exceedHeight == null || !exceedHeight) {
         if (exceedHeight == null) {
-          text.clear();
+          // Remove just the description
+          text.removeLast();
         }
         break;
       }

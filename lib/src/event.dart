@@ -78,16 +78,24 @@ class FlutterWeekViewEvent extends Comparable<FlutterWeekViewEvent> {
     height = height - (padding?.top ?? 0.0) - (padding?.bottom ?? 0.0);
     width = width - (padding?.left ?? 0.0) - (padding?.right ?? 0.0) - 30;
 
+
     return GestureDetector(
       onTap: onTap,
       onLongPress: onLongPress,
       child: Container(
         decoration: decoration ??
             (backgroundColor != null
-                ? BoxDecoration(color: backgroundColor)
+                ? BoxDecoration(
+                    color: backgroundColor,
+                  )
                 : null),
         margin: margin,
-        padding: padding,
+        padding: height > 5
+            ? padding
+            : const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 5,
+              ),
         child: Stack(
           children: [
             Positioned(
